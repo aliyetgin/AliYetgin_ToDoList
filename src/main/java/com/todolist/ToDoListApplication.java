@@ -1,13 +1,14 @@
-package com.aliyetgin.AliYetgin_ToDoList;
+package com.todolist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class AliYetginToDoListApplication {
+public class ToDoListApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AliYetginToDoListApplication.class, args);
+		SpringApplication.run(ToDoListApplication.class, args);
 	}
 
 }
