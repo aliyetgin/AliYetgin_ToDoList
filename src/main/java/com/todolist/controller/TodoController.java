@@ -44,7 +44,7 @@ public class TodoController {
         Todo currentTodo = todoRepository.findById(id).orElseThrow(RuntimeException::new);
         currentTodo.setTask(todo.getTask());
         currentTodo.setCompleted(todo.isCompleted());
-        currentTodo = todoRepository.save(todo);
+        currentTodo = todoRepository.save(currentTodo);
 
         return ResponseEntity.ok(currentTodo);
     }

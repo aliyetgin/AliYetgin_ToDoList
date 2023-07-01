@@ -25,28 +25,38 @@ class TodoEdit extends Component {
     }
 
     handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        let item = {...this.state.item};
-        item[name] = value;
-        this.setState({item});
-    }
+        const { name, value } = event.target;
+        this.setState(prevState => ({
+          item: { ...prevState.item, [name]: value }
+        }));
+      }
+      
 
-    async handleSubmit(event) {
+      async handleSubmit(event) {
         event.preventDefault();
-        const {item} = this.state;
-    
-        await fetch('/todos' + (item.id ? '/' + item.id : ''), {
-            method: (item.id) ? 'PUT' : 'POST',
+        const { item } = this.state;
+      
+        try {
+          const response = await fetch(`/todos/${item.id}`, {
+            method: 'PUT',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(item),
-        });
-        this.props.history.push('/todos');
-    }
+          });
+      
+          if (response.ok) {
+            this.props.history.push('/todos');
+          } else {
+            // Handle error case
+            console.error('Error updating todo:', response.status);
+          }
+        } catch (error) {
+          console.error('Error updating todo:', error);
+        }
+      }
+      
 
     render() {
         const {item} = this.state;
